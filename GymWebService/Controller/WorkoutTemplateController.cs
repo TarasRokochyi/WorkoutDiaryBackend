@@ -2,6 +2,7 @@ using BLL.DTO;
 using BLL.Services.Contracts;
 using DAL.Repositories.Contracts;
 using GymWebService.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace GymWebService.Controller;
 [ApiController]
 
 [Route("/api/[controller]")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class WorkoutTemplateController : ControllerBase
 {
     

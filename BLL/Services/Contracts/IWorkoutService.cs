@@ -6,7 +6,7 @@ public interface IWorkoutService
 {
     
     Task<IEnumerable<WorkoutResponseDTO>> GetAllWorkoutsAsync();
-    Task<IEnumerable<WorkoutResponseDTO>> GetAllWorkoutsByUserIdAsync(int userId);
+    Task<IEnumerable<WorkoutShortResponseDTO>> GetAllWorkoutsByUserIdAsync(int userId);
     Task<WorkoutResponseDTO> GetWorkoutByIdAsync(int id);
     Task<WorkoutResponseDTO> GetUserWorkoutByIdAsync(int userId, int id);
     Task<WorkoutResponseDTO> AddWorkoutAsync(WorkoutRequestDTO workout);

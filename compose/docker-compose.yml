@@ -1,19 +1,19 @@
 name: GymWebService
 services:
-  api:
-    image: ghcr.io/tarasrokochyi/gymwebservice:latest
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStringPostgres=Host=postgres;Port=5433;Database=GymWebService;Username=pgadmin;Password=pgadmin
-      - JWT_Issuer=
-      - JWT_Audience=
-      - JWT_Key=key
-      - FRONTEND_URL=
-    ports:
-      - 8080:8080
-    depends_on:
-      - postgres
-
+  #  api:
+  #    image: ghcr.io/tarasrokochyi/gymwebservice:latest
+  #    environment:
+  #      - ASPNETCORE_ENVIRONMENT=Production
+  #      - ConnectionStringPostgres=Host=postgres;Port=5433;Database=GymWebService;Username=pgadmin;Password=pgadmin
+  #      - JWT_Issuer=
+  #      - JWT_Audience=
+  #      - JWT_Key=key
+  #      - FRONTEND_URL=
+  #    ports:
+  #      - 8080:8080
+  #    depends_on:
+  #      - postgres
+  #
   postgres:
     image: postgres:15-alpine
     environment:

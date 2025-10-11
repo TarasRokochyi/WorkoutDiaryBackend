@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Identity;
 namespace DAL.Models;
 public partial class User : IdentityUser<int>
 {
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
     
-    public string LastName { get; set; }
+    public string? LastName { get; set; }
     
     public string? Level { get; set; }
 

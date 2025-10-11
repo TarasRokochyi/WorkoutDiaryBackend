@@ -6,6 +6,8 @@ public class WorkoutExercise
     public int? WorkoutId { get; set; }
 
     public int? ExerciseId { get; set; }
+    
+    public int? WorkoutTemplateId { get; set; }
 
     public int? Sets { get; set; }
 
@@ -20,5 +22,7 @@ public class WorkoutExercise
     public virtual Exercise? Exercise { get; set; }
 
     public virtual Workout? Workout { get; set; }
+    
+    public virtual WorkoutTemplate? WorkoutTemplate { get; set; }
 
 }

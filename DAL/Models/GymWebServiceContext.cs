@@ -24,8 +24,9 @@ public partial class GymWebServiceContext : IdentityDbContext<
     public GymWebServiceContext(DbContextOptions<GymWebServiceContext> options)
         : base(options)
     {
-        //Database.EnsureDeleted();
+        // Database.EnsureDeleted();
         Database.EnsureCreated();
+        //Database.Migrate();
     }
 
     public virtual DbSet<Exercise> Exercises { get; set; }
@@ -141,6 +142,7 @@ public partial class GymWebServiceContext : IdentityDbContext<
                 .HasPrecision(10, 2)
                 .HasColumnName("weight");
             entity.Property(e => e.WorkoutId).HasColumnName("workoutid");
+            entity.Property(e => e.WorkoutTemplateId).HasColumnName("workouttemplateid");
 
             entity.HasOne(d => d.Exercise).WithMany(p => p.WorkoutExercises)
                 .HasForeignKey(d => d.ExerciseId)
@@ -151,6 +153,11 @@ public partial class GymWebServiceContext : IdentityDbContext<
                 .HasForeignKey(d => d.WorkoutId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("workoutexercises_workoutid_fkey");
+            
+            entity.HasOne(d => d.WorkoutTemplate).WithMany(p => p.WorkoutExercises)
+                .HasForeignKey(d => d.WorkoutTemplateId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("workoutexercises_workouttemplateid_fkey");
         });
 
         modelBuilder.Entity<WorkoutTemplate>(entity =>
@@ -165,6 +172,8 @@ public partial class GymWebServiceContext : IdentityDbContext<
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.UserId).HasColumnName("userid");
+            entity.Property(e => e.Duration).HasColumnName("duration");
+            entity.Property(e => e.Notes).HasColumnName("notes");
 
             entity.HasOne(d => d.User).WithMany(p => p.WorkoutTemplates)
                 .HasForeignKey(d => d.UserId)
@@ -386,6 +395,37 @@ public partial class GymWebServiceContext : IdentityDbContext<
                 MuscleGroups = "Upper body",
                 Description = ""
             }
+        );
+
+        modelBuilder.Entity<WorkoutTemplate>().HasData(
+            new WorkoutTemplate
+            {
+                TemplateId = 1,
+                Description = "some description",
+                Duration = 90,
+                Name = "pull day",
+                Notes = "some notes",
+                UserId = null,
+            }
+        );
+        modelBuilder.Entity<WorkoutExercise>().HasData(
+            new WorkoutExercise
+             {
+                 WorkoutExerciseId = 1,
+                 ExerciseId = 1,
+                 Reps = 5,
+                 Sets = 5,
+                 Weight = 20,
+                 WorkoutTemplateId = 1,
+             },
+             new WorkoutExercise{
+                 WorkoutExerciseId = 2,
+                 ExerciseId = 2,
+                 Reps = 5,
+                 Sets = 5,
+                 Weight = 40,
+                 WorkoutTemplateId = 1,
+             }
         );
         
         

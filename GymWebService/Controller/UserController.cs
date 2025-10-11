@@ -47,9 +47,16 @@ public class UserController : ControllerBase
     public async Task<IActionResult> UpdatePassword(UpdatePasswordRequest request)
     {
         var userId = HttpContext.GetUserId();
-        var result = await _userService.UpdatePasswordAsync(userId, request);
+        try
+        {
+            var result = await _userService.UpdatePasswordAsync(userId, request);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
 
-        return Ok(result);
     }
 
     [HttpDelete]
@@ -69,14 +76,10 @@ public class UserController : ControllerBase
     }
     
     
-   // 
-   // 
-   //  need to make this return 401 no authorized
-   // 
-   // 
     [HttpPost("token")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetTokenAsync(TokenRequestModel model){
+    public async Task<IActionResult> GetTokenAsync(TokenRequestModel model)
+    {
         var result = await _userService.GetTokenAsync(model);
         //if(result.IsAuthenticated == true)
             return Ok(result);
@@ -91,6 +94,7 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("refresh-token")]
+    [AllowAnonymous]
     public async Task<IActionResult> RefreshToken(RefreshTokenRequestDTO refreshToken)
     {
         var response = await _userService.RefreshTokenAsync(refreshToken.RefreshToken);

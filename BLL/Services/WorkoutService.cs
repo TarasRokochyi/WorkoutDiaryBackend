@@ -31,10 +31,10 @@ public class WorkoutService : IWorkoutService
         return result;
     }
 
-    public async Task<IEnumerable<WorkoutResponseDTO>> GetAllWorkoutsByUserIdAsync(int userId)
+    public async Task<IEnumerable<WorkoutShortResponseDTO>> GetAllWorkoutsByUserIdAsync(int userId)
     {
         var workouts = await _unitOfWork.WorkoutRepository.GetByUserIdAsync(userId);
-        var result = _mapper.Map<IEnumerable<WorkoutResponseDTO>>(workouts);
+        var result = _mapper.Map<IEnumerable<WorkoutShortResponseDTO>>(workouts);
         return result;
     }
 
@@ -70,8 +70,11 @@ public class WorkoutService : IWorkoutService
         }
         
         _mapper.Map(workout, workoutToUpdate);
-        var updatedWorkout = await _unitOfWork.WorkoutRepository.UpdateAsync(workoutToUpdate);
+        await _unitOfWork.WorkoutRepository.UpdateAsync(workoutToUpdate);
         await _unitOfWork.CompleteAsync();
+        
+        var updatedWorkout = await _unitOfWork.WorkoutRepository.GetUserWorkoutAsync(userId, id);
+        
         var result = _mapper.Map<WorkoutResponseDTO>(updatedWorkout);
         return result;
     }
@@ -90,7 +93,7 @@ public class WorkoutService : IWorkoutService
     public async Task DeleteUserWorkoutAsync(int userId, int id)
     {
         var workoutToDelete = await _unitOfWork.WorkoutRepository.GetUserWorkoutAsync(userId, id);
-        if (workoutToDelete != null)
+        if (workoutToDelete == null)
         {
             throw new Exception("Not Found");
         }

@@ -1,6 +1,8 @@
 using BLL.DTO;
 using BLL.Services.Contracts;
 using GymWebService.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymWebService.Controller;
@@ -8,6 +10,7 @@ namespace GymWebService.Controller;
 [ApiController]
 
 [Route("/api/[controller]")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class WorkoutController : ControllerBase
 {
     private readonly ILogger<WorkoutController> _logger;
@@ -21,7 +24,7 @@ public class WorkoutController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<WorkoutResponseDTO>>> GetAllUserWorkouts()
+    public async Task<ActionResult<IEnumerable<WorkoutShortResponseDTO>>> GetAllUserWorkouts()
     {
         int userId = HttpContext.GetUserId();
         var result = await _workoutService.GetAllWorkoutsByUserIdAsync(userId);
@@ -48,6 +51,7 @@ public class WorkoutController : ControllerBase
     public async Task<ActionResult> PutUserWorkout(int id, WorkoutRequestDTO workoutRequest)
     {
         var userId = HttpContext.GetUserId();
+        workoutRequest.UserId = userId;
         var result = await _workoutService.UpdateUserWorkoutAsync(userId, id, workoutRequest);
         return Ok(result);
     }

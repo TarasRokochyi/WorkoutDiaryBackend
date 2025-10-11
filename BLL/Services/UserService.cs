@@ -68,17 +68,15 @@ public class UserService : IUserService
 
         if (user == null)
             return "User not found.";
-        try
-        {
-            await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
-            await _unitOfWork.CompleteAsync();
+        
+        var identityRes = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+        await _unitOfWork.CompleteAsync();
 
-            return "Password updated successfully.";
-        }
-        catch (Exception ex)
+        if (!identityRes.Succeeded)
         {
-            throw new Exception($"An error occurred when changing password: {ex.Message}");
+            throw new Exception(identityRes.ToString());
         }
+        return "Password updated successfully.";
     }
 
     public async Task DeleteUserAsync(int id)
@@ -104,7 +102,7 @@ public class UserService : IUserService
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, AuthorizationConst.default_role.ToString());
-
+                _context.SaveChanges();
                 return $"User Registered with username {user.UserName}";
             }
             throw new Exception(result.ToString());
