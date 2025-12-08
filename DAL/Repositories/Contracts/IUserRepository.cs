@@ -1,4 +1,5 @@
 using DAL.Models;
+using DAL.Models.Entities;
 
 namespace DAL.Repositories.Contracts;
 

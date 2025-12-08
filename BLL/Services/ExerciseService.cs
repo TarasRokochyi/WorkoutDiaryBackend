@@ -1,8 +1,13 @@
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using AutoMapper;
 using BLL.DTO;
 using BLL.Services.Contracts;
 using DAL.Models;
+using DAL.Models.Entities;
+using DAL.Repositories;
 using DAL.UOW;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace BLL.Services;
@@ -11,17 +16,20 @@ public class ExerciseService : IExerciseService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private HttpClient _httpClient;
     //private readonly IMemoryCache _cache;
     
 
     public ExerciseService(
         IUnitOfWork unitOfWork,
-        IMapper mapper
+        IMapper mapper,
+        HttpClient httpClient
         //IMemoryCache cache
     )
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _httpClient = httpClient;
         //_cache = cache;
     }
     
@@ -114,5 +122,36 @@ public class ExerciseService : IExerciseService
         }
         await _unitOfWork.ExerciseRepository.DeleteAsync(exerciseToDelete);
         await _unitOfWork.CompleteAsync();
+    }
+
+    public async Task<IEnumerable<ExercisesRecommendationDTO>> getExerciseRecommendationAsync(IFormFile image)
+    {
+        using var content = new MultipartFormDataContent();
+
+        // Convert IFormFile to StreamContent
+        using var fileStream = image.OpenReadStream();
+        var streamContent = new StreamContent(fileStream);
+
+        // Optional: pass content-type
+        streamContent.Headers.ContentType = new MediaTypeHeaderValue(image.ContentType);
+
+        // Add file to multipart form
+        content.Add(streamContent, "image", image.FileName);
+
+        // Send to external API
+        var response = await _httpClient.PostAsync(Environment.GetEnvironmentVariable("OBJ_DETECTION_URL"), content);
+        response.EnsureSuccessStatusCode();
+
+        var yolo_response = await response.Content.ReadFromJsonAsync<YoloResponseDTO>();
+        var objects = yolo_response.objects;
+        
+        var equipment_names = objects.Where(r => r.confidence > 0.5).Select(r => r.label).Distinct().ToList();
+
+        var recommendations = await _unitOfWork.EquipmentRepository.GetExercisesByEquipmentNameList(equipment_names);
+        
+        // var result = dictionary.Select(t => new ExercisesRecommendationDTO {equipmentName = t.Key, exercises = _mapper.Map<List<ExerciseResponseDTO>>(t.Value)}).ToList();
+        var result = _mapper.Map<IEnumerable<ExercisesRecommendationDTO>>(recommendations);
+
+        return result;
     }
 }

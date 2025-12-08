@@ -1,4 +1,5 @@
 using DAL.Models;
+using DAL.Models.Entities;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Moq;

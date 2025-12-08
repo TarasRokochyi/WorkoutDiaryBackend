@@ -1,4 +1,5 @@
 using DAL.Models;
+using DAL.Models.Entities;
 using DAL.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,47 @@ public class WorkoutRepository : GenericRepository<Workout>, IWorkoutRepository
         return result;
     }
 
-    public async Task<IEnumerable<Workout>> GetByUserIdAsync(int userId)
+    public async Task<IEnumerable<Workout>> GetByUserIdWithExercisesAsync(int userId)
+    {
+        var result = await table.Where(t => t.UserId == userId)
+            .Include(w => w.WorkoutExercises)
+            .ThenInclude(w => w.Exercise)
+            .ToListAsync();
+        return result;
+    }
+
+    public async Task<IEnumerable<WorkoutExerciseMaxWeightChart>> GetExercisesMaxWeight(int userId)
+    {
+         var result = await context
+             .Database
+             .SqlQuery<WorkoutExerciseMaxWeightChart>($"""
+             SELECT
+                w."workoutid",
+                we."exerciseid",
+                CASE 
+                    WHEN e."category" = 'Strength' THEN Max(we."weight")
+                    ELSE Max(we."distance")
+                END AS "maxweight",
+                w."date",
+                e."name",
+                e."category"
+             FROM "workouts" AS w
+             JOIN "workoutexercises" AS we
+                 ON we."workoutid" = w."workoutid"
+             JOIN "exercises" AS e
+                 ON we."exerciseid" = e."exerciseid"
+             WHERE w."userid" = {userId}
+             Group by
+             w."workoutid",
+             we."exerciseid",
+             e."category",
+             e."name";
+             """).ToListAsync();
+
+        return result;
+    }
+
+    public  async Task<IEnumerable<Workout>> GetByUserIdAsync(int userId)
     {
         var result = await table.Where(t => t.UserId == userId).ToListAsync();
         return result;

@@ -16,7 +16,7 @@ public class ExerciseController : ControllerBase
     private readonly ILogger<WorkoutController> _logger;
     
     private IExerciseService _exerciseService;
- public ExerciseController(IExerciseService exerciseService, ILogger<WorkoutController> logger)
+    public ExerciseController(IExerciseService exerciseService, ILogger<WorkoutController> logger)
     {
         _exerciseService = exerciseService;
         _logger = logger;
@@ -60,5 +60,17 @@ public class ExerciseController : ControllerBase
         int userId = HttpContext.GetUserId();
         await _exerciseService.DeleteUserExerciseAsync(userId, id);
         return NoContent();
+    }
+
+    [HttpPost("exercise-recommendation")]
+    public async Task<ActionResult<IEnumerable<ExercisesRecommendationDTO>>> getExerciseRecommendation(IFormFile image)
+    {
+        if (image == null || image.Length == 0)
+        {
+            return BadRequest("No image file provided.");
+        }
+        
+        var result = await _exerciseService.getExerciseRecommendationAsync(image);
+        return Ok(result);
     }
 }

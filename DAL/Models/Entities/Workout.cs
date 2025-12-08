@@ -1,14 +1,14 @@
-namespace DAL.Models;
-public class WorkoutTemplate
+namespace DAL.Models.Entities;
+public partial class Workout
 {
-    public int TemplateId { get; set; }
+    public int WorkoutId { get; set; }
 
     public int? UserId { get; set; }
 
     public string? Name { get; set; }
 
-    public string? Description { get; set; }
-    
+    public DateTime? Date { get; set; }
+
     public int? Duration { get; set; }
 
     public string? Notes { get; set; }
@@ -16,5 +16,4 @@ public class WorkoutTemplate
     public virtual User? User { get; set; }
 
     public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new List<WorkoutExercise>();
-
 }

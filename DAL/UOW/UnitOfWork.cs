@@ -1,4 +1,5 @@
 using DAL.Models;
+using DAL.Models.Entities;
 using DAL.Repositories;
 using DAL.Repositories.Contracts;
 
@@ -12,13 +13,15 @@ public class UnitOfWork : IUnitOfWork
     public IWorkoutExerciseRepository WorkoutExerciseRepository { get; }
     public IWorkoutRepository WorkoutRepository { get; }
     public IWorkoutTemplateRepository WorkoutTemplateRepository { get; }
+    public IEquipmentRepository EquipmentRepository { get; }
 
     public UnitOfWork(GymWebServiceContext context,
         IUserRepository userRepository,
         IExerciseRepository exerciseRepository,
         IWorkoutExerciseRepository workoutExerciseRepository,
         IWorkoutRepository workoutRepository,
-        IWorkoutTemplateRepository workoutTemplateRepository)
+        IWorkoutTemplateRepository workoutTemplateRepository,
+        IEquipmentRepository equipmentRepository)
     {
         _context = context;
         ExerciseRepository = exerciseRepository;
@@ -26,6 +29,7 @@ public class UnitOfWork : IUnitOfWork
         WorkoutExerciseRepository = workoutExerciseRepository;
         WorkoutRepository = workoutRepository;
         WorkoutTemplateRepository = workoutTemplateRepository;
+        EquipmentRepository = equipmentRepository;
     }
 
     public async Task<int> CompleteAsync(CancellationToken cancellationToken = default(CancellationToken))

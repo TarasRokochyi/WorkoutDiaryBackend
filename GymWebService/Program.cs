@@ -3,6 +3,7 @@ using BLL.DTO.Identity;
 using BLL.Services;
 using BLL.Services.Contracts;
 using DAL.Models;
+using DAL.Models.Entities;
 using DAL.Repositories;
 using DAL.Repositories.Contracts;
 using DAL.UOW;
@@ -169,6 +170,7 @@ public class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IWorkoutTemplateRepository, WorkoutTemplateRepository>();
         builder.Services.AddScoped<IWorkoutExerciseRepository, WorkoutExerciseRepository>();
+        builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         // SERVICES
@@ -177,7 +179,9 @@ public class Program
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IWorkoutTemplateService, WorkoutTemplateService>();
         builder.Services.AddScoped<IWorkoutExerciseService, WorkoutExerciseService>();
-        
+        builder.Services.AddScoped<IChartService, ChartService>();
+
+        builder.Services.AddHttpClient();
         
         // AUTOMAPPER
         //builder.Services.AddAutoMapper(typeof(Program).Assembly);

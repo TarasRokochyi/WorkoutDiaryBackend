@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace DAL.Models;
+namespace DAL.Models.Entities;
 public partial class User : IdentityUser<int>
 {
     public string? FirstName { get; set; }

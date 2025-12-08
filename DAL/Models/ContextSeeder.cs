@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using Microsoft.AspNetCore.Identity;
 using DAL.Constants;
+using DAL.Models.Entities;
 
 namespace DAL.Models;
 

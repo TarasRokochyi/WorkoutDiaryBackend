@@ -2,6 +2,7 @@ using AutoMapper;
 using BLL.DTO;
 using BLL.Services.Contracts;
 using DAL.Models;
+using DAL.Models.Entities;
 using DAL.UOW;
 
 namespace BLL.Services;

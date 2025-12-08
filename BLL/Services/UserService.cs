@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Text;
 using BLL.DTO.Identity;
 using DAL.Constants;
+using DAL.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 

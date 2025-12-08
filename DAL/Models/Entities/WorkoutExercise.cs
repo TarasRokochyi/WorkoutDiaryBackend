@@ -1,4 +1,4 @@
-namespace DAL.Models;
+namespace DAL.Models.Entities;
 public class WorkoutExercise
 {
     public int WorkoutExerciseId { get; set; }

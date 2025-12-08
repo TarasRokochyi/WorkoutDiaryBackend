@@ -10,6 +10,7 @@ public interface IUnitOfWork
     IWorkoutExerciseRepository WorkoutExerciseRepository { get; }
     IWorkoutRepository WorkoutRepository { get; }
     IWorkoutTemplateRepository WorkoutTemplateRepository { get; }
+    IEquipmentRepository EquipmentRepository { get; }
 
     Task<int> CompleteAsync(CancellationToken cancellationToken = default(CancellationToken));
     
