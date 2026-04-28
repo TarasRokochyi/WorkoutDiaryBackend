@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GymWebService.Controller;
+namespace WorkoutDiary.Controller;
 
 [ApiController]
 [Route("api/[controller]")]

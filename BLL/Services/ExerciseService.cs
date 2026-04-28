@@ -139,7 +139,8 @@ public class ExerciseService : IExerciseService
         content.Add(streamContent, "image", image.FileName);
 
         // Send to external API
-        var response = await _httpClient.PostAsync(Environment.GetEnvironmentVariable("OBJ_DETECTION_URL"), content);
+        //var response = await _httpClient.PostAsync(Environment.GetEnvironmentVariable("OBJ_DETECTION_URL"), content);
+        var response = await _httpClient.PostAsync("http://localhost:8000/detect/", content);
         response.EnsureSuccessStatusCode();
 
         var yolo_response = await response.Content.ReadFromJsonAsync<YoloResponseDTO>();

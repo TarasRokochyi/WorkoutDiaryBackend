@@ -7,7 +7,7 @@ namespace DAL.UOW;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly GymWebServiceContext _context;
+    private readonly WorkoutDiaryContext _context;
     public IExerciseRepository ExerciseRepository { get; }
     public IUserRepository UserRepository { get; }
     public IWorkoutExerciseRepository WorkoutExerciseRepository { get; }
@@ -15,7 +15,7 @@ public class UnitOfWork : IUnitOfWork
     public IWorkoutTemplateRepository WorkoutTemplateRepository { get; }
     public IEquipmentRepository EquipmentRepository { get; }
 
-    public UnitOfWork(GymWebServiceContext context,
+    public UnitOfWork(WorkoutDiaryContext context,
         IUserRepository userRepository,
         IExerciseRepository exerciseRepository,
         IWorkoutExerciseRepository workoutExerciseRepository,

@@ -7,10 +7,10 @@ namespace DAL.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    protected readonly GymWebServiceContext context;
+    protected readonly WorkoutDiaryContext context;
     protected readonly DbSet<T> table;
 
-    public GenericRepository(GymWebServiceContext context)
+    public GenericRepository(WorkoutDiaryContext context)
     {
         this.context = context;
         table = context.Set<T>();

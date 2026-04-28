@@ -1,4 +1,4 @@
-namespace GymWebService.Extensions;
+namespace WorkoutDiary.Extensions;
 
 public static class GeneralExtension
 {

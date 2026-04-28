@@ -6,7 +6,7 @@ namespace DAL.Repositories;
 
 public class UserRepository : GenericRepository<User>, IUserRepository
 {
-    public UserRepository(GymWebServiceContext context) : base(context)
+    public UserRepository(WorkoutDiaryContext context) : base(context)
     {
     }
 }

@@ -4,12 +4,12 @@ using BLL.DTO.Identity;
 using BLL.Services.Contracts;
 using DAL.Models;
 using DAL.UOW;
-using GymWebService.Extensions;
+using WorkoutDiary.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GymWebService.Controller;
+namespace WorkoutDiary.Controller;
 
 
 [ApiController]

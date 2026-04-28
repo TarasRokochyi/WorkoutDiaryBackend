@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymWebService", "GymWebService\GymWebService.csproj", "{6019E471-0B1C-41BF-A6EC-7699525961B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutDiary", "WorkoutDiary\WorkoutDiary.csproj", "{6019E471-0B1C-41BF-A6EC-7699525961B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{44A50367-93AF-48B2-A4FD-40FE9E9B3C64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{4A3FEFF4-1D94-4159-BB95-70A86D63A8CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymWebService.Tests", "GymWebService.Tests\GymWebService.Tests.csproj", "{C4D9E950-32DC-4313-A0A4-5F62012EAE05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkoutDiary.Tests", "WorkoutDiary.Tests\WorkoutDiary.Tests.csproj", "{C4D9E950-32DC-4313-A0A4-5F62012EAE05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

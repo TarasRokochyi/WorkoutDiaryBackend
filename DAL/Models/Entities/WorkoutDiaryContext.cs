@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models.Entities;
 
-public partial class GymWebServiceContext : IdentityDbContext<
+public partial class WorkoutDiaryContext : IdentityDbContext<
     User, 
     IdentityRole<int>, 
     int, 
@@ -15,11 +15,11 @@ public partial class GymWebServiceContext : IdentityDbContext<
     IdentityRoleClaim<int>,
     IdentityUserToken<int>>
 {
-    public GymWebServiceContext()
+    public WorkoutDiaryContext()
     {
     }
 
-    public GymWebServiceContext(DbContextOptions<GymWebServiceContext> options)
+    public WorkoutDiaryContext(DbContextOptions<WorkoutDiaryContext> options)
         : base(options)
     {
         //Database.EnsureDeleted();
@@ -41,7 +41,7 @@ public partial class GymWebServiceContext : IdentityDbContext<
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?Linkid=723263.
-    //    => optionsBuilder.UseNpgsql("Host=localhost;Port=5434;Database=GymWebService;Username=pgadmin;Password=pgadmin");
+    //    => optionsBuilder.UseNpgsql("Host=localhost;Port=5434;Database=WorkoutDiary;Username=pgadmin;Password=pgadmin");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

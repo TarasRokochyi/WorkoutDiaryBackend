@@ -9,13 +9,13 @@ namespace GymWebService.Tests.Repositories;
 
 public class GenericRepositoryTests
 {
-    private readonly Mock<GymWebServiceContext> _mockContext;
+    private readonly Mock<WorkoutDiaryContext> _mockContext;
     private readonly Mock<DbSet<Exercise>> _mockSet;
     private readonly GenericRepository<Exercise> _repository;
 
     public GenericRepositoryTests()
     {
-        _mockContext = new Mock<GymWebServiceContext>();
+        _mockContext = new Mock<WorkoutDiaryContext>();
         _mockSet = new Mock<DbSet<Exercise>>();
         _mockContext.Setup(m => m.Set<Exercise>()).Returns(_mockSet.Object);
         _repository = new GenericRepository<Exercise>(_mockContext.Object);

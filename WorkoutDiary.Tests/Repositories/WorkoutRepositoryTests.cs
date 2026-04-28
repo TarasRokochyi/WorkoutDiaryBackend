@@ -8,13 +8,13 @@ namespace GymWebService.Tests.Repositories;
 
 public class WorkoutRepositoryTests
 {
-    private readonly Mock<GymWebServiceContext> _mockContext;
+    private readonly Mock<WorkoutDiaryContext> _mockContext;
     private readonly Mock<DbSet<Workout>> _mockWorkoutSet;
     private readonly WorkoutRepository _workoutRepository;
 
     public WorkoutRepositoryTests()
     {
-        _mockContext = new Mock<GymWebServiceContext>();
+        _mockContext = new Mock<WorkoutDiaryContext>();
 
         var workouts = new List<Workout>
         {

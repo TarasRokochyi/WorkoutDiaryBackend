@@ -3,7 +3,7 @@ using BLL.DTO.ChartDTO;
 using DAL.Models;
 using DAL.Models.Entities;
 
-namespace GymWebService.Mappings;
+namespace WorkoutDiary.Mappings;
 
 public class AutomapperProfile : AutoMapper.Profile
 {

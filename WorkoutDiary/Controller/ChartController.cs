@@ -1,11 +1,11 @@
 using BLL.DTO.ChartDTO;
 using BLL.Services.Contracts;
-using GymWebService.Extensions;
+using WorkoutDiary.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GymWebService.Controller;
+namespace WorkoutDiary.Controller;
 
 [ApiController]
 [Route("/api/[controller]")]

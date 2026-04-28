@@ -7,7 +7,7 @@ namespace DAL.Repositories;
 
 public class WorkoutRepository : GenericRepository<Workout>, IWorkoutRepository
 {
-    public WorkoutRepository(GymWebServiceContext context) : base(context)
+    public WorkoutRepository(WorkoutDiaryContext context) : base(context)
     {
     }
 

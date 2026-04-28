@@ -19,7 +19,7 @@ namespace BLL.Services;
 
 public class UserService : IUserService
 {
-    private readonly GymWebServiceContext _context;
+    private readonly WorkoutDiaryContext _context;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
@@ -27,7 +27,7 @@ public class UserService : IUserService
     private readonly JWT _jwt;
 
     public UserService(
-        GymWebServiceContext context,
+        WorkoutDiaryContext context,
         IUnitOfWork unitOfWork,
         IMapper mapper,
         UserManager<User> userManager,

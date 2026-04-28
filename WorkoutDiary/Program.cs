@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-namespace GymWebService;
+namespace WorkoutDiary;
 public class Program
 {
     public static async Task Main(string[] args)
@@ -37,20 +37,20 @@ public class Program
         {
             Console.WriteLine("In dev");
             builder.Configuration.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true);
-            builder.Services.AddDbContext<GymWebServiceContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DockerPostgreSQLConnection")));
+            builder.Services.AddDbContext<WorkoutDiaryContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DockerPostgreSQLConnection")));
         }
         else if (builder.Environment.IsProduction())
         {
             Console.WriteLine("In prod");
             builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            builder.Services.AddDbContext<GymWebServiceContext>(options => options.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionStringPostgres")));
+            builder.Services.AddDbContext<WorkoutDiaryContext>(options => options.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionStringPostgres")));
         }
         
         // Configure IDENTITY
         builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
             {
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456788-._@+/ ";
-            }).AddEntityFrameworkStores<GymWebServiceContext>( );
+            }).AddEntityFrameworkStores<WorkoutDiaryContext>( );
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.Configure<IdentityOptions>(options =>
         {

@@ -1,4 +1,4 @@
-name: GymWebService
+name: WorkoutDiary
 services:
   #  api:
   #    image: ghcr.io/tarasrokochyi/gymwebservice:latest
