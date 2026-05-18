@@ -83,7 +83,7 @@ public class WorkoutService : IWorkoutService
     public async Task DeleteWorkoutAsync(int id)
     {
         var workoutToDelete = await _unitOfWork.WorkoutRepository.GetByIdAsync(id);
-        if (workoutToDelete != null)
+        if (workoutToDelete == null)
         {
             throw new Exception("Not Found");
         }

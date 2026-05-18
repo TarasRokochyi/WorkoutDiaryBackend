@@ -114,7 +114,7 @@ public class UserController : ControllerBase
         if (string.IsNullOrEmpty(token))
             return BadRequest(new { message = "Token is required" });
 
-        var response = _userService.RevokeToken(token);
+        var response = await _userService.RevokeTokenAsync(token);
 
         if (!response)
             return NotFound(new { message = "Token not found" });

@@ -19,7 +19,6 @@ namespace BLL.Services;
 
 public class UserService : IUserService
 {
-    private readonly WorkoutDiaryContext _context;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
@@ -27,7 +26,6 @@ public class UserService : IUserService
     private readonly JWT _jwt;
 
     public UserService(
-        WorkoutDiaryContext context,
         IUnitOfWork unitOfWork,
         IMapper mapper,
         UserManager<User> userManager,
@@ -35,7 +33,6 @@ public class UserService : IUserService
         RoleManager<IdentityRole<int>> roleManager
     )
     {
-        _context = context;
         _userManager = userManager;
         _roleManager = roleManager;
         _jwt = jwt.Value;
@@ -103,7 +100,7 @@ public class UserService : IUserService
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, AuthorizationConst.default_role.ToString());
-                _context.SaveChanges();
+                await _unitOfWork.CompleteAsync();
                 return $"User Registered with username {user.UserName}";
             }
             throw new Exception(result.ToString());
@@ -146,8 +143,8 @@ public class UserService : IUserService
                 authenticationModel.RefreshToken = refreshToken.Token;
                 authenticationModel.RefreshTokenExpiration = refreshToken.Expires;
                 user.RefreshTokens.Add(refreshToken);
-                _context.Update(user);
-                _context.SaveChanges();
+                await _unitOfWork.UserRepository.UpdateAsync(user);
+                await _unitOfWork.CompleteAsync();
             }
             
             return authenticationModel;
@@ -181,7 +178,7 @@ public class UserService : IUserService
     public async Task<AuthenticationModel> RefreshTokenAsync(string token)
     {
         var authenticationModel = new AuthenticationModel();
-        var user = _context.Users.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
+        var user = await _unitOfWork.UserRepository.GetUserByTokenAsync(token);
         if (user == null)
         {
             authenticationModel.IsAuthenticated = false;
@@ -204,8 +201,8 @@ public class UserService : IUserService
         //Generate new Refresh Token and save to Database
         var newRefreshToken = CreateRefreshToken();
         user.RefreshTokens.Add(newRefreshToken);
-        _context.Update(user);
-        _context.SaveChanges();
+        await _unitOfWork.UserRepository.UpdateAsync(user);
+        await _unitOfWork.CompleteAsync();
 
         //Generates new jwt
         authenticationModel.IsAuthenticated = true;
@@ -227,9 +224,9 @@ public class UserService : IUserService
         return result;
     }
     
-    public bool RevokeToken(string token)
+    public async Task<bool>  RevokeTokenAsync(string token)
     {
-        var user = _context.Users.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == token));
+        var user = await _unitOfWork.UserRepository.GetUserByTokenAsync(token);
 
         // return false if no user found with token
         if (user == null) return false;
@@ -241,8 +238,8 @@ public class UserService : IUserService
 
         // revoke token and save
         refreshToken.Revoked = DateTime.UtcNow;
-        _context.Update(user);
-        _context.SaveChanges();
+        await _unitOfWork.UserRepository.UpdateAsync(user);
+        await _unitOfWork.CompleteAsync();
 
         return true;
     }

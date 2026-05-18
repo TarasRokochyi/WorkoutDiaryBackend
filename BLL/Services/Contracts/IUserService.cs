@@ -16,5 +16,5 @@ public interface IUserService
     Task<string> AddRoleAsync(AddRoleModel model);
     Task<AuthenticationModel> RefreshTokenAsync(string token);
     Task<UserResponseDTO> GetByIdAsync(int id);
-    bool RevokeToken(string token);
+    Task<bool> RevokeTokenAsync(string token);
 }
