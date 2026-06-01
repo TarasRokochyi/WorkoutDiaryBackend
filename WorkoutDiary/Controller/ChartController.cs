@@ -37,5 +37,12 @@ public class ChartController : ControllerBase
         var result = await _chartService.getMaxWeightAsync(userId);
         return Ok(result);
     }
-    
+
+    [HttpGet("kpis")]
+    public async Task<ActionResult<KPIsDTO>> GetKPIs([FromQuery] int period)
+    {
+        var userId = HttpContext.GetUserId();
+        var result = await _chartService.getKPIsAsync(userId, period);
+        return Ok(result);
+    }
 }

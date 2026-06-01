@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Runtime.InteropServices.JavaScript;
 using AutoMapper;
 using BLL.DTO.ChartDTO;
 using BLL.Services.Contracts;
+using DAL.Specification;
 using DAL.UOW;
 
 namespace BLL.Services;
@@ -59,5 +61,22 @@ public class ChartService : IChartService
         //var workoutExercisesMaxWeight = _mapper.Map<IEnumerable<WorkoutExerciseMaxWeightDTO>>(workouts);
         //
         //return workoutExercisesMaxWeight;
+    }
+
+    public async Task<KPIsDTO> getKPIsAsync(int userId, int period)
+    {
+        var date = DateTime.UtcNow.AddDays(-period);
+        var periodSpec = new WorkoutPeriodSpecification(x => x.UserId == userId && x.Date >= date );
+
+        var result = await _unitOfWork.WorkoutRepository.FindWithSpecificationAsync(periodSpec);
+        
+        var kpisDTO = new KPIsDTO();
+        // kpisDTO.TotalVolume = ;
+        // kpisDTO.WorkoutsCompleted = ;
+        // kpisDTO.TrainingTimeHours = ;
+        // kpisDTO.AverageWorkoutsPerWeek = ;
+        
+        
+        return kpisDTO;
     }
 }

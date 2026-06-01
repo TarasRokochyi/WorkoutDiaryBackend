@@ -1,6 +1,7 @@
 using DAL.Models;
 using DAL.Models.Entities;
 using DAL.Repositories.Contracts;
+using DAL.Specification;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories;
@@ -61,9 +62,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         await Task.Run(() => table.Remove(entity));
     }
 
-    //public async Task<IEnumerable<T>> FindWithSpecification(ISpecification<T> specification)
-    //{
-    //    return await Task.Run(() => SpecificationEvaluator<T>.GetQuery(table.AsQueryable(), specification));
-    //}
+    public async Task<IEnumerable<T>> FindWithSpecificationAsync(ISpecification<T> specification)
+    {
+        return SpecificationEvaluator<T>.GetQuery(table.AsQueryable(), specification);
+    }
     
 }

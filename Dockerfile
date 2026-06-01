@@ -5,7 +5,7 @@ WORKDIR /source
 
 # Copy project file and restore as distinct layers
 COPY . .
-WORKDIR ./GymWebService
+WORKDIR ./WorkoutDiary
 RUN dotnet restore
 RUN dotnet publish --no-restore -o /app
 
@@ -14,4 +14,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 EXPOSE 8080
 WORKDIR /app
 COPY --link --from=build /app .
-ENTRYPOINT ["./GymWebService"]
+ENTRYPOINT ["./WorkoutDiary"]
