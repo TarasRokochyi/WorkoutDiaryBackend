@@ -30,7 +30,7 @@ public class ExerciseController : ControllerBase
         return Ok(result);
     }
     
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<ExerciseResponseDTO>> GetUserExercise(int id)
     {
         var userId = HttpContext.GetUserId();
@@ -63,14 +63,29 @@ public class ExerciseController : ControllerBase
     }
 
     [HttpPost("exercise-recommendation")]
-    public async Task<ActionResult<IEnumerable<ExercisesRecommendationDTO>>> getExerciseRecommendation(IFormFile image)
+    public async Task<ActionResult<IEnumerable<ExercisesRecommendationDTO>>> getExerciseRecommendation(IFormFile image, [FromQuery] string? difficulty = null)
     {
         if (image == null || image.Length == 0)
-        {
             return BadRequest("No image file provided.");
-        }
-        
-        var result = await _exerciseService.getExerciseRecommendationAsync(image);
+
+        var result = await _exerciseService.getExerciseRecommendationAsync(image, difficulty);
+        return Ok(result);
+    }
+
+    [HttpGet("equipment")]
+    public async Task<ActionResult<IEnumerable<string>>> GetEquipmentNames()
+    {
+        var result = await _exerciseService.GetEquipmentNamesAsync();
+        return Ok(result);
+    }
+
+    [HttpPost("exercise-recommendation/manual")]
+    public async Task<ActionResult<IEnumerable<ExercisesRecommendationDTO>>> GetRecommendationsByEquipment([FromBody] ManualRecommendationRequestDTO request)
+    {
+        if (request.EquipmentNames == null || request.EquipmentNames.Count == 0)
+            return BadRequest("No equipment selected.");
+
+        var result = await _exerciseService.GetRecommendationsByEquipmentNamesAsync(request.EquipmentNames, request.Difficulty);
         return Ok(result);
     }
 }

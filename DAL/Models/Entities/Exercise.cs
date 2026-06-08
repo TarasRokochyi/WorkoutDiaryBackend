@@ -14,6 +14,8 @@ public partial class Exercise
 
     public string? Description { get; set; }
 
+    public string? Difficulty { get; set; }
+
     public virtual User? User { get; set; }
     public virtual ICollection<Equipment> Equipments { get; set; } = new List<Equipment>();
 

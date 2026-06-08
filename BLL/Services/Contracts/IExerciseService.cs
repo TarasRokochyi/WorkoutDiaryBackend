@@ -15,5 +15,7 @@ public interface IExerciseService
     Task<ExerciseResponseDTO> UpdateUserExerciseAsync(int userId, int id, ExerciseRequestDTO exercise);
     Task DeleteUserExerciseAsync(int userId, int id);
     Task DeleteDefaultExerciseAsync(int id);
-    Task<IEnumerable<ExercisesRecommendationDTO>> getExerciseRecommendationAsync(IFormFile image);
+    Task<IEnumerable<ExercisesRecommendationDTO>> getExerciseRecommendationAsync(IFormFile image, string? difficulty = null);
+    Task<IEnumerable<string>> GetEquipmentNamesAsync();
+    Task<IEnumerable<ExercisesRecommendationDTO>> GetRecommendationsByEquipmentNamesAsync(List<string> names, string? difficulty = null);
 }

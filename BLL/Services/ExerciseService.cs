@@ -124,7 +124,7 @@ public class ExerciseService : IExerciseService
         await _unitOfWork.CompleteAsync();
     }
 
-    public async Task<IEnumerable<ExercisesRecommendationDTO>> getExerciseRecommendationAsync(IFormFile image)
+    public async Task<IEnumerable<ExercisesRecommendationDTO>> getExerciseRecommendationAsync(IFormFile image, string? difficulty = null)
     {
         using var content = new MultipartFormDataContent();
 
@@ -148,11 +148,22 @@ public class ExerciseService : IExerciseService
         
         var equipment_names = objects.Where(r => r.confidence > 0.5).Select(r => r.label).Distinct().ToList();
 
-        var recommendations = await _unitOfWork.EquipmentRepository.GetExercisesByEquipmentNameList(equipment_names);
+        var recommendations = await _unitOfWork.EquipmentRepository.GetExercisesByEquipmentNameList(equipment_names, difficulty);
         
         // var result = dictionary.Select(t => new ExercisesRecommendationDTO {equipmentName = t.Key, exercises = _mapper.Map<List<ExerciseResponseDTO>>(t.Value)}).ToList();
         var result = _mapper.Map<IEnumerable<ExercisesRecommendationDTO>>(recommendations);
 
         return result;
+    }
+
+    public async Task<IEnumerable<string>> GetEquipmentNamesAsync()
+    {
+        return await _unitOfWork.EquipmentRepository.GetAllEquipmentNamesAsync();
+    }
+
+    public async Task<IEnumerable<ExercisesRecommendationDTO>> GetRecommendationsByEquipmentNamesAsync(List<string> names, string? difficulty = null)
+    {
+        var recommendations = await _unitOfWork.EquipmentRepository.GetExercisesByEquipmentNameList(names, difficulty);
+        return _mapper.Map<IEnumerable<ExercisesRecommendationDTO>>(recommendations);
     }
 }

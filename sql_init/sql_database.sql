@@ -24,7 +24,8 @@ CREATE TABLE Exercises (
     Name VARCHAR(255), -- e.g., "Squat", "Bench Press"
     Category VARCHAR(50), -- e.g., Strength, Cardio
     MuscleGroups VARCHAR(255), -- e.g., "Legs, Glutes"
-    Description TEXT
+    Description TEXT,
+    Difficulty VARCHAR(50) -- Beginner, Intermediate, Advanced
 );
 
 CREATE TABLE WorkoutExercises (

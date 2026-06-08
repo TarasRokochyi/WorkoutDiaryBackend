@@ -14,5 +14,7 @@ public class ExerciseResponseDTO
 
     public string? Description { get; set; }
 
+    public string? Difficulty { get; set; }
+
     //public virtual ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new List<WorkoutExercise>();
 }

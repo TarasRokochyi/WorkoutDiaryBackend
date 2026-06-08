@@ -57,6 +57,7 @@ public partial class WorkoutDiaryContext : IdentityDbContext<
                 .HasMaxLength(50)
                 .HasColumnName("category");
             entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Difficulty).HasColumnName("difficulty");
             entity.Property(e => e.MuscleGroups)
                 .HasMaxLength(255)
                 .HasColumnName("musclegroups");
@@ -278,234 +279,42 @@ public partial class WorkoutDiaryContext : IdentityDbContext<
             {
                 EquipmentId = 6,
                 Name = "resistance band"
+            },
+            new Equipment
+            {
+                EquipmentId = 7,
+                Name = "no equipment"
             });
 
         modelBuilder.Entity<Exercise>().HasData(
-            new Exercise{
-                ExerciseId = 1,
-                UserId = null,
-                Name = "Pull ups",
-                Category = "Strength",
-                MuscleGroups = "back, arms",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 2,
-                UserId = null,
-                Name = "Squats",
-                Category = "Strength",
-                MuscleGroups = "Quadriceps, Glutes",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 3,
-                UserId = null,
-                Name = "Dips",
-                Category = "Strength",
-                MuscleGroups = "Triceps, Chest, Shoulders",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 4,
-                UserId = null,
-                Name = "Biceps curls",
-                Category = "Strength",
-                MuscleGroups = "Biceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 5,
-                UserId = null,
-                Name = "Deadlift",
-                Category = "Strength",
-                MuscleGroups = "Hamstring, Glutes, Quadriceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 6,
-                UserId = null,
-                Name = "Running",
-                Category = "Cardio",
-                MuscleGroups = "legs",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 7,
-                UserId = null,
-                Name = "Swimming",
-                Category = "Cardio",
-                MuscleGroups = "Upper body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 8,
-                UserId = null,
-                Name = "Bicycle",
-                Category = "Cardio",
-                MuscleGroups = "Quadriceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 9,
-                UserId = null,
-                Name = "Walking",
-                Category = "Cardio",
-                MuscleGroups = "Whole body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 10,
-                UserId = null,
-                Name = "Rowing",
-                Category = "Cardio",
-                MuscleGroups = "Whole body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 11,
-                UserId = null,
-                Name = "Bench press",
-                Category = "Strength",
-                MuscleGroups = "Chest, Triceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 12,
-                UserId = null,
-                Name = "Bent-over row",
-                Category = "Strength",
-                MuscleGroups = "Chest, Triceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 13,
-                UserId = null,
-                Name = "Romanian deadlifts",
-                Category = "Strength",
-                MuscleGroups = "Hamstring, Glutes",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 14,
-                UserId = null,
-                Name = "Split squats",
-                Category = "Strength",
-                MuscleGroups = "Quadriceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 15,
-                UserId = null,
-                Name = "Bulgarian split squats",
-                Category = "Strength",
-                MuscleGroups = "Quadriceps, Glutes",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 16,
-                UserId = null,
-                Name = "Standing overhead press",
-                Category = "Strength",
-                MuscleGroups = "Shoulders, triceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 17,
-                UserId = null,
-                Name = "Hammer curls",
-                Category = "Strength",
-                MuscleGroups = "Shoulders, triceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 18,
-                UserId = null,
-                Name = "Pistol squats",
-                Category = "Strength",
-                MuscleGroups = "Quadriceps",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 19,
-                UserId = null,
-                Name = "Wrist curls",
-                Category = "Strength",
-                MuscleGroups = "Forearm",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 20,
-                UserId = null,
-                Name = "Muscle ups",
-                Category = "Strength",
-                MuscleGroups = "Upper body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 21,
-                UserId = null,
-                Name = "L-sit",
-                Category = "Static",
-                MuscleGroups = "Upper body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 22,
-                UserId = null,
-                Name = "Dead hang",
-                Category = "Static",
-                MuscleGroups = "Upper body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 23,
-                UserId = null,
-                Name = "Plank",
-                Category = "Static",
-                MuscleGroups = "core",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 24,
-                UserId = null,
-                Name = "Hand stand",
-                Category = "Static",
-                MuscleGroups = "core",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 25,
-                UserId = null,
-                Name = "Front leaver",
-                Category = "Static",
-                MuscleGroups = "upper body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 26,
-                UserId = null,
-                Name = "Planche",
-                Category = "Static",
-                MuscleGroups = "upper body",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 27,
-                UserId = null,
-                Name = "Wall sit",
-                Category = "Static",
-                MuscleGroups = "legs",
-                Description = ""
-            },
-            new Exercise{
-                ExerciseId = 28,
-                UserId = null,
-                Name = "Push-ups",
-                Category = "Strength",
-                MuscleGroups = "upper body",
-                Description = ""
-            }
-            
+            new Exercise{ ExerciseId = 1,  UserId = null, Name = "Pull ups",                 Category = "Strength", MuscleGroups = "back, arms",                    Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 2,  UserId = null, Name = "Squats",                   Category = "Strength", MuscleGroups = "Quadriceps, Glutes",             Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 3,  UserId = null, Name = "Dips",                     Category = "Strength", MuscleGroups = "Triceps, Chest, Shoulders",      Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 4,  UserId = null, Name = "Biceps curls",             Category = "Strength", MuscleGroups = "Biceps",                         Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 5,  UserId = null, Name = "Deadlift",                 Category = "Strength", MuscleGroups = "Hamstring, Glutes, Quadriceps",  Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 6,  UserId = null, Name = "Running",                  Category = "Cardio",   MuscleGroups = "legs",                           Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 7,  UserId = null, Name = "Swimming",                 Category = "Cardio",   MuscleGroups = "Upper body",                     Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 8,  UserId = null, Name = "Bicycle",                  Category = "Cardio",   MuscleGroups = "Quadriceps",                     Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 9,  UserId = null, Name = "Walking",                  Category = "Cardio",   MuscleGroups = "Whole body",                     Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 10, UserId = null, Name = "Rowing",                   Category = "Cardio",   MuscleGroups = "Whole body",                     Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 11, UserId = null, Name = "Bench press",              Category = "Strength", MuscleGroups = "Chest, Triceps",                 Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 12, UserId = null, Name = "Bent-over row",            Category = "Strength", MuscleGroups = "Back, Biceps",                   Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 13, UserId = null, Name = "Romanian deadlifts",       Category = "Strength", MuscleGroups = "Hamstring, Glutes",              Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 14, UserId = null, Name = "Split squats",             Category = "Strength", MuscleGroups = "Quadriceps",                     Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 15, UserId = null, Name = "Bulgarian split squats",   Category = "Strength", MuscleGroups = "Quadriceps, Glutes",             Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 16, UserId = null, Name = "Standing overhead press",  Category = "Strength", MuscleGroups = "Shoulders, Triceps",             Difficulty = "Intermediate", Description = "" },
+            new Exercise{ ExerciseId = 17, UserId = null, Name = "Hammer curls",             Category = "Strength", MuscleGroups = "Biceps, Forearms",               Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 18, UserId = null, Name = "Pistol squats",            Category = "Strength", MuscleGroups = "Quadriceps",                     Difficulty = "Advanced",     Description = "" },
+            new Exercise{ ExerciseId = 19, UserId = null, Name = "Wrist curls",              Category = "Strength", MuscleGroups = "Forearm",                        Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 20, UserId = null, Name = "Muscle ups",               Category = "Strength", MuscleGroups = "Upper body",                     Difficulty = "Advanced",     Description = "" },
+            new Exercise{ ExerciseId = 21, UserId = null, Name = "L-sit",                    Category = "Static",   MuscleGroups = "Upper body",                     Difficulty = "Advanced",     Description = "" },
+            new Exercise{ ExerciseId = 22, UserId = null, Name = "Dead hang",                Category = "Static",   MuscleGroups = "Upper body",                     Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 23, UserId = null, Name = "Plank",                    Category = "Static",   MuscleGroups = "Core",                           Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 24, UserId = null, Name = "Hand stand",               Category = "Static",   MuscleGroups = "Core, Shoulders",                Difficulty = "Advanced",     Description = "" },
+            new Exercise{ ExerciseId = 25, UserId = null, Name = "Front leaver",             Category = "Static",   MuscleGroups = "Upper body",                     Difficulty = "Advanced",     Description = "" },
+            new Exercise{ ExerciseId = 26, UserId = null, Name = "Planche",                  Category = "Static",   MuscleGroups = "Upper body",                     Difficulty = "Advanced",     Description = "" },
+            new Exercise{ ExerciseId = 27, UserId = null, Name = "Wall sit",                 Category = "Static",   MuscleGroups = "Legs",                           Difficulty = "Beginner",     Description = "" },
+            new Exercise{ ExerciseId = 28, UserId = null, Name = "Push-ups",                 Category = "Strength", MuscleGroups = "Upper body",                     Difficulty = "Beginner",     Description = "" }
         );
         
         modelBuilder.Entity("ExerciseEquipment").HasData(
@@ -609,7 +418,20 @@ public partial class WorkoutDiaryContext : IdentityDbContext<
             new {ExercisesExerciseId = 27, EquipmentsEquipmentId = 4},
             
             // 28. Push-ups
-            new {ExercisesExerciseId = 28, EquipmentsEquipmentId = 2}
+            new {ExercisesExerciseId = 28, EquipmentsEquipmentId = 2},
+
+            // No-equipment / bodyweight
+            new {ExercisesExerciseId = 2,  EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 6,  EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 7,  EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 8,  EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 9,  EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 14, EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 18, EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 23, EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 24, EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 27, EquipmentsEquipmentId = 7},
+            new {ExercisesExerciseId = 28, EquipmentsEquipmentId = 7}
         );
 
 
