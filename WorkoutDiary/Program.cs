@@ -38,12 +38,14 @@ public class Program
             Console.WriteLine("In dev");
             builder.Configuration.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true);
             builder.Services.AddDbContext<WorkoutDiaryContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DockerPostgreSQLConnection")));
+            builder.Configuration["OBJ_DETECTION_URL"] = "http://localhost:8000/detect/";
         }
         else if (builder.Environment.IsProduction())
         {
             Console.WriteLine("In prod");
             builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             builder.Services.AddDbContext<WorkoutDiaryContext>(options => options.UseNpgsql(Environment.GetEnvironmentVariable("ConnectionStringPostgres")));
+            builder.Configuration["OBJ_DETECTION_URL"] = Environment.GetEnvironmentVariable("OBJ_DETECTION_URL");
         }
         
         // Configure IDENTITY

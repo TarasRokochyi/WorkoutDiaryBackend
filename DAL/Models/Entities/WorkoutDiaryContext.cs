@@ -23,7 +23,7 @@ public partial class WorkoutDiaryContext : IdentityDbContext<
         : base(options)
     {
         //Database.EnsureDeleted();
-        //Database.EnsureCreated();
+        Database.EnsureCreated();
         //Database.Migrate();
     }
 

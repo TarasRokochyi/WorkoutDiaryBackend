@@ -9,6 +9,7 @@ using DAL.Repositories;
 using DAL.UOW;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 
 namespace BLL.Services;
 
@@ -16,6 +17,7 @@ public class ExerciseService : IExerciseService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IConfiguration _configuration;
     private HttpClient _httpClient;
     //private readonly IMemoryCache _cache;
     
@@ -23,13 +25,15 @@ public class ExerciseService : IExerciseService
     public ExerciseService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
-        HttpClient httpClient
+        HttpClient httpClient,
+        IConfiguration configuration
         //IMemoryCache cache
     )
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _httpClient = httpClient;
+        _configuration = configuration;
         //_cache = cache;
     }
     
@@ -140,7 +144,9 @@ public class ExerciseService : IExerciseService
 
         // Send to external API
         //var response = await _httpClient.PostAsync(Environment.GetEnvironmentVariable("OBJ_DETECTION_URL"), content);
-        var response = await _httpClient.PostAsync("http://localhost:8000/detect/", content);
+        var imgDetectionUrl = _configuration["OBJ_DETECTION_URL"];
+        //var response = await _httpClient.PostAsync("http://localhost:8000/detect/", content);
+        var response = await _httpClient.PostAsync(imgDetectionUrl, content);
         response.EnsureSuccessStatusCode();
 
         var yolo_response = await response.Content.ReadFromJsonAsync<YoloResponseDTO>();
