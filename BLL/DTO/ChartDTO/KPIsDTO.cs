@@ -9,4 +9,6 @@ public class KPIsDTO
     public double AverageWorkoutsPerWeek { get; set; }
 
     public double TrainingTimeHours { get; set; }
+
+    public string TopExercise { get; set; } = "—";
 }

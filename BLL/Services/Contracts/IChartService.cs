@@ -7,4 +7,6 @@ public interface IChartService
     Task<IEnumerable<WorkoutExerciseVolumeDTO>> getTotalVolumeAsync(int userId);
     Task<IEnumerable<WorkoutExerciseMaxWeightDTO>> getMaxWeightAsync(int userId);
     Task<KPIsDTO> getKPIsAsync(int userId, int period);
+    Task<IEnumerable<ExerciseDistributionDTO>> getExerciseDistributionAsync(int userId, int period);
+    Task<IEnumerable<HeatmapDayDTO>> getHeatmapAsync(int userId);
 }

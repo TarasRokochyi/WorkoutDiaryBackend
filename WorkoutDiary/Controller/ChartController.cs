@@ -45,4 +45,20 @@ public class ChartController : ControllerBase
         var result = await _chartService.getKPIsAsync(userId, period);
         return Ok(result);
     }
+
+    [HttpGet("distribution")]
+    public async Task<ActionResult<IEnumerable<ExerciseDistributionDTO>>> GetExerciseDistribution([FromQuery] int period)
+    {
+        var userId = HttpContext.GetUserId();
+        var result = await _chartService.getExerciseDistributionAsync(userId, period);
+        return Ok(result);
+    }
+
+    [HttpGet("heatmap")]
+    public async Task<ActionResult<IEnumerable<HeatmapDayDTO>>> GetHeatmap()
+    {
+        var userId = HttpContext.GetUserId();
+        var result = await _chartService.getHeatmapAsync(userId);
+        return Ok(result);
+    }
 }
